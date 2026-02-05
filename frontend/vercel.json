@@ -1,0 +1,8 @@
+{
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "https://easyintern-backend.vercel.app/api/$1"
+    }
+  ]
+}
