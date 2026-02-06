@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import Logo from './Logo'
 import './Navbar.css'
 
 function Navbar() {
@@ -16,7 +17,7 @@ function Navbar() {
       <div className="container">
         <div className="navbar-content">
           <Link to="/" className="navbar-brand">
-            EasyIntern
+            <Logo size="large" />
           </Link>
           <div className="navbar-links">
             <Link to="/interns">Browse Interns</Link>

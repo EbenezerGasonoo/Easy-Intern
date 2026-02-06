@@ -1,12 +1,14 @@
 import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
+import Logo from '../components/Logo'
 import api from '../utils/api'
-import './Auth.css'
+import './Login.css'
 
 function Login() {
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
+  const [showPassword, setShowPassword] = useState(false)
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const { login } = useAuth()
@@ -33,35 +35,66 @@ function Login() {
   }
 
   return (
-    <div className="auth-page">
-      <div className="auth-container">
-        <h2>Login to EasyIntern</h2>
-        <form onSubmit={handleSubmit}>
+    <div className="login-page">
+      <div className="login-card">
+        <Link to="/" className="login-logo">
+          <Logo size="large" />
+        </Link>
+        <h1 className="login-title">Welcome back</h1>
+        <p className="login-subtitle">Sign in to your EasyIntern account</p>
+
+        <form onSubmit={handleSubmit} className="login-form">
           <div className="form-group">
-            <label>Email</label>
+            <label htmlFor="login-email">Email</label>
             <input
+              id="login-email"
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
+              placeholder="you@example.com"
+              autoComplete="email"
               required
             />
           </div>
           <div className="form-group">
-            <label>Password</label>
+            <div className="password-label-row">
+              <label htmlFor="login-password">Password</label>
+              <button
+                type="button"
+                className="show-password-btn"
+                onClick={() => setShowPassword(!showPassword)}
+                aria-label={showPassword ? 'Hide password' : 'Show password'}
+              >
+                {showPassword ? 'Hide' : 'Show'}
+              </button>
+            </div>
             <input
-              type="password"
+              id="login-password"
+              type={showPassword ? 'text' : 'password'}
               value={password}
               onChange={(e) => setPassword(e.target.value)}
+              placeholder="Enter your password"
+              autoComplete="current-password"
               required
             />
           </div>
-          {error && <div className="error">{error}</div>}
-          <button type="submit" className="btn btn-primary" disabled={loading}>
-            {loading ? 'Logging in...' : 'Login'}
+          {error && (
+            <div className="login-error" role="alert">
+              {error}
+            </div>
+          )}
+          <button
+            type="submit"
+            className="btn btn-primary login-submit"
+            disabled={loading}
+          >
+            {loading ? 'Signing in...' : 'Sign in'}
           </button>
         </form>
-        <p className="auth-switch">
-          Don't have an account? <Link to="/register">Sign up</Link>
+
+        <p className="login-switch">
+          Don't have an account?{' '}
+          <Link to="/register">Create one</Link>
         </p>
       </div>
     </div>

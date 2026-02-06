@@ -1,0 +1,72 @@
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  color: inherit;
+}
+
+.logo-image {
+  height: 80px;
+  width: auto;
+  object-fit: contain;
+  flex-shrink: 0;
+  display: block;
+}
+
+.logo-small .logo-image {
+  height: 50px;
+}
+
+.logo-medium .logo-image {
+  height: 70px;
+}
+
+.logo-large .logo-image {
+  height: 100px;
+}
+
+.logo-fallback {
+  display: none;
+}
+
+.logo-icon {
+  width: 40px;
+  height: 40px;
+  flex-shrink: 0;
+}
+
+.logo-small .logo-icon {
+  width: 28px;
+  height: 28px;
+}
+
+.logo-medium .logo-icon {
+  width: 40px;
+  height: 40px;
+}
+
+.logo-large .logo-icon {
+  width: 56px;
+  height: 56px;
+}
+
+.logo-text {
+  font-size: 24px;
+  font-weight: 600;
+  color: #1E3A5F;
+  letter-spacing: -0.01em;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', sans-serif;
+}
+
+.logo-small .logo-text {
+  font-size: 18px;
+}
+
+.logo-medium .logo-text {
+  font-size: 24px;
+}
+
+.logo-large .logo-text {
+  font-size: 32px;
+}
