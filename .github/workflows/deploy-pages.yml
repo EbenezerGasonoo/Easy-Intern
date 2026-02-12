@@ -34,9 +34,8 @@ jobs:
         working-directory: frontend
         run: |
           npm ci
-          npm run build
+          NODE_ENV=production npm run build
         env:
-          NODE_ENV: production
           VITE_API_URL: ${{ secrets.VITE_API_URL }}
 
       - name: Upload artifact
