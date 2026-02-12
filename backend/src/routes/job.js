@@ -50,8 +50,9 @@ router.get('/', async (req, res) => {
     if (skills) {
       const skillArray = Array.isArray(skills) ? skills : [skills];
       filteredJobs = jobs.filter(job =>
+        (job.skills || []).length > 0 &&
         skillArray.some(skill =>
-          job.skills.some(js => js.toLowerCase().includes(skill.toLowerCase()))
+          (job.skills || []).some(js => String(js).toLowerCase().includes(skill.toLowerCase()))
         )
       );
     }
