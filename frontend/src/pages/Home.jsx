@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import api from '../utils/api'
+import { sampleInterns, sampleJobs } from '../data/sampleData'
 import './Home.css'
 
 function Home() {
@@ -31,10 +32,14 @@ function Home() {
       ])
       const internList = Array.isArray(internsRes.data) ? internsRes.data : []
       const jobList = Array.isArray(jobsRes.data) ? jobsRes.data : []
-      setInterns(internList.slice(0, 6))
-      setJobs(jobList.slice(0, 6))
-      if (internList.length === 0 && jobList.length === 0) {
-        setApiError('No data yet. Make sure the backend is deployed and the database is seeded (see DEPLOY_VERCEL.md).')
+      if (internList.length > 0 || jobList.length > 0) {
+        setInterns(internList.slice(0, 6))
+        setJobs(jobList.slice(0, 6))
+        setApiError(null)
+      } else {
+        setInterns(sampleInterns.slice(0, 6))
+        setJobs(sampleJobs.slice(0, 6))
+        setApiError('Showing sample data. Seed the database to see real data from your API (see DEPLOY_VERCEL.md).')
       }
     } catch (error) {
       console.error('Failed to fetch data:', error)

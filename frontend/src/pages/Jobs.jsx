@@ -1,6 +1,7 @@
 import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import api from '../utils/api'
+import { sampleJobs } from '../data/sampleData'
 import './Jobs.css'
 
 function Jobs() {
@@ -23,9 +24,11 @@ function Jobs() {
       if (remote) params.remote = remote
 
       const response = await api.get('/jobs', { params })
-      setJobs(response.data)
+      const data = Array.isArray(response.data) ? response.data : []
+      setJobs(data.length > 0 ? data : sampleJobs)
     } catch (error) {
       console.error('Failed to fetch jobs:', error)
+      setJobs(sampleJobs)
     } finally {
       setLoading(false)
     }

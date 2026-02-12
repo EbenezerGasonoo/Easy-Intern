@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import api from '../utils/api'
+import { sampleJobs } from '../data/sampleData'
 import './JobDetail.css'
 
 function JobDetail() {
@@ -20,6 +21,14 @@ function JobDetail() {
   }, [id])
 
   const fetchJob = async () => {
+    if (id.startsWith('sample-job-')) {
+      const index = parseInt(id.replace('sample-job-', ''), 10) - 1
+      if (index >= 0 && index < sampleJobs.length) {
+        setJob(sampleJobs[index])
+      }
+      setLoading(false)
+      return
+    }
     try {
       const response = await api.get(`/jobs/${id}`)
       setJob(response.data)

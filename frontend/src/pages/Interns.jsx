@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import api from '../utils/api'
+import { sampleInterns } from '../data/sampleData'
 import './Interns.css'
 
 function Interns() {
@@ -25,9 +26,11 @@ function Interns() {
       if (skills) params.skills = skills
 
       const response = await api.get('/intern/browse', { params })
-      setInterns(response.data)
+      const data = Array.isArray(response.data) ? response.data : []
+      setInterns(data.length > 0 ? data : sampleInterns)
     } catch (error) {
       console.error('Failed to fetch interns:', error)
+      setInterns(sampleInterns)
     } finally {
       setLoading(false)
     }

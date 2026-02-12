@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { useAuth } from '../context/AuthContext'
 import api from '../utils/api'
+import { sampleInterns } from '../data/sampleData'
 import './InternDetail.css'
 
 function InternDetail() {
@@ -16,6 +17,14 @@ function InternDetail() {
   }, [id])
 
   const fetchIntern = async () => {
+    if (id.startsWith('sample-intern-')) {
+      const index = parseInt(id.replace('sample-intern-', ''), 10) - 1
+      if (index >= 0 && index < sampleInterns.length) {
+        setIntern(sampleInterns[index])
+      }
+      setLoading(false)
+      return
+    }
     try {
       const response = await api.get(`/intern/${id}`)
       setIntern(response.data)
